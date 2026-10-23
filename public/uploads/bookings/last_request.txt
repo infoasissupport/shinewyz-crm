@@ -1,0 +1,3 @@
+{"customer":"Nisa","phone":"9495500554","vehicle":"Dzire","vehicle_plate":"KL25S2128","vehicle_type":"sedan","service":"Signature Wash (Medium)","time":"18:28","source":"walkin","status":"confirmed","booking_date":"2026-10-22","pickup_required":"0","whatsapp_opt_in":"1","branch_code":"ANCH-01"}
+FILES:
+[]

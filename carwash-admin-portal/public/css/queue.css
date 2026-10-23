@@ -1,0 +1,243 @@
+/* Page-specific styles for queue.html — all shared component styles live in common.css */
+
+/* Completed-Today "View" popup — read-only job card summary opened in-page
+   instead of navigating to /jobcards. */
+.cjm-vehicle{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.cjm-vc-icon{width:44px;height:44px;border-radius:10px;background:#f1f2f4;color:#94a3b8;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cjm-vc-icon svg{width:22px;height:22px;}
+.cjm-vehicle-name{font-size:14.5px;font-weight:700;color:#171a20;text-transform:capitalize;}
+
+.cjm-meta{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px
+  ;color:#171a20;background:#f9fafb;border:1px solid #eef1f5;
+  border-radius:10px;padding:10px 14px;margin-bottom:12px;}
+.cjm-meta span{display:flex;align-items:center;gap:6px;}
+.cjm-meta i{font-size:14px;color:#94a3b8;}
+
+.cjm-section{background:#fff;border:1px solid #eef1f5;border-radius:12px;padding:14px;margin-bottom:12px;}
+.cjm-section h4{font-size:12px;font-weight:700;color:#171a20;text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px;}
+.cjm-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.cjm-section-head h4{margin-bottom:0;}
+.cjm-checklist-count{font-size:11.5px;font-weight:700;color:#475569;background:#f1f2f4;border-radius:999px;padding:2px 10px;}
+
+.cjm-checklist-row{display:flex;align-items:center;gap:9px;padding:7px 0;font-size:13px;color:#94a3b8;}
+.cjm-checklist-row.done{color:#171a20;}
+.cjm-check{width:19px;height:19px;border-radius:6px;border:1.5px solid #d7dbe1;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;}
+.cjm-checklist-row.done .cjm-check{background:#16a34a;border-color:#16a34a;}
+
+.cjm-note{font-size:13px;color:#475569;line-height:1.5;}
+
+.cjm-photo-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.cjm-photo-tile{flex:0 0 64px;height:56px;border-radius:8px;background:#f1f2f4;border:1px solid #eef1f5;cursor:pointer;}
+.cjm-add-photo{flex:0 0 64px;height:56px;border-radius:10px;border:1px dashed #d7dbe1;background:none;display:flex;align-items:center;justify-content:center;color:#94a3b8;cursor:pointer;}
+.cjm-add-photo:hover{background:#f6f7f9;color:#475569;}
+
+/* Bay cards (Bay 1-4). */
+.bay-card{display:flex;flex-direction:column;transition:box-shadow .15s ease;}
+.bay-card:hover{box-shadow:0 6px 18px rgba(15,23,42,.08);}
+.bay-head, .bay-header-row{display:flex;align-items:center;
+  justify-content:space-between;gap:8px;}
+.bay-name{text-transform: capitalize; display:flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700;color:#171a20;}
+.bay-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.bay-head .status-pill{text-transform:uppercase;font-weight:700;font-size:10.5px;letter-spacing:.03em;}
+
+.bay-actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex-shrink:0;}
+.bay-action-btn{width:26px;height:26px;border-radius:7px;border:1px solid #e2e6ec;background:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:#475467;font-size:13px;}
+.bay-action-btn.delete{color:#DC2626;border-color:#fecaca;}
+.bay-action-btn.delete:hover{background:#FEF2F2;}
+
+.bay-body{display:flex;gap:14px;align-items:center;margin-top:12px;}
+.bay-hero{width:76px;height:76px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.bay-hero svg{width:40px;height:40px;}
+.bay-info{flex:1;min-width:0;}
+
+.bay-vehicle{font-size:15px;font-weight:700;color:#172033; text-transform: capitalize;}
+.bay-vehicle-empty{font-weight:500;color:var(--text-3);}
+.bay-model{margin-top:1px;font-size:12.5px;color:#70757e; text-transform: capitalize;}
+.bay-service{margin-top:2px;font-size:12px;color:#70757e;line-height:1.4; text-transform: capitalize;
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:help;}
+
+.bay-footer{display:flex;align-items:center;gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid #f0f2f5;color:#70757e;font-size:11.5px;}
+.bay-footer i{font-size:15px;color:#6d28d9;}
+
+.bay-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;color:#70757e;font-size:11.5px;}
+.bay-meta-item{display:flex;align-items:center;gap:5px;}
+.bay-meta-item i{font-size:15px;color:#1d4ed8;}
+.bay-meta-item:last-child i{color:#ff5b25;}
+.bay-empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 0 6px;}
+.bay-empty-icon{width:76px;height:76px;border-radius:14px;background:#f1f2f4;
+  color:#94a3b8;display:flex;align-items:center;justify-content:center;
+  margin-bottom:10px;}
+.bay-empty-icon svg{width:28px;height:28px;}
+.bay-empty-title{font-size:14px;font-weight:700;color:#171a20;}
+.bay-empty-sub{margin-top:2px;font-size:12px;color:#70757e;}
+
+.view-job-btn{width:100%;height:36px;margin-top:12px;border-radius:10px;
+  font-size:12.5px;font-weight:600;gap:6px;background:#fff;
+  border:1px solid var(--accent);color:var(--accent);}
+.view-job-btn:hover{background:#f8f9fb;}
+.view-job-btn i{font-size:15px;color:var(--accent);}
+
+#queueWaitlistRows .start-wash-btn{height:36px;padding:0 16px;border-radius:10px;font-size:12.5px;font-weight:600;gap:6px;}
+#queueWaitlistRows .start-wash-btn i{font-size:15px;}
+
+
+
+/* Completed Today table — same row layout as Waitlist, read-only + a "View" link. */
+#queueCompletedRows .wl-cell{display:flex;align-items:center;gap:10px;}
+#queueCompletedRows .wl-icon{width:36px;height:36px;border-radius:9px;background:#E7F7EE;display:flex;align-items:center;justify-content:center;color:#16a34a;flex-shrink:0;}
+#queueCompletedRows .wl-icon svg{width:18px;height:18px;}
+#queueCompletedRows .wl-customer{color:#171a20;font-size:13px;font-weight:700;line-height:1.25;text-transform:capitalize;}
+#queueCompletedRows .wl-vehicle{color:#171a20;font-size:13px;font-weight:600;line-height:1.3;}
+#queueCompletedRows .wl-service{color:#70757e;font-size:12.5px;line-height:1.3;text-transform:capitalize;}
+#queueCompletedRows .view-job-btn-sm{height:36px;padding:0 14px;border-radius:10px;font-size:12.5px;font-weight:600;gap:6px;background:#fff;border:1px solid var(--accent);color:var(--accent);}
+#queueCompletedRows .view-job-btn-sm:hover{background:#f8f9fb;}
+#queueCompletedRows .view-job-btn-sm i{font-size:15px;}
+
+@media (max-width:640px){
+  #completedTableScroll{height:auto;overflow:visible;border:none;border-radius:0;background:transparent;}
+  #completedTableScroll table,
+  #completedTableScroll tbody,
+  #completedTableScroll tr,
+  #completedTableScroll td{display:block;width:100%;}
+  #completedTableScroll thead{display:none;}
+
+  #queueCompletedRows tr.cw-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "vehicle vehicle"
+      "customer completed"
+      "service service"
+      "staff action";
+    column-gap:14px;
+    row-gap:8px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+    box-shadow:0 1px 4px rgba(15,23,42,.05);
+  }
+  #queueCompletedRows tr.cw-row td{padding:0;border-bottom:none;}
+  #queueCompletedRows tr.cw-row td:nth-child(1){grid-area:vehicle;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;}
+  #queueCompletedRows tr.cw-row td:nth-child(2){grid-area:customer;align-self:start;}
+  #queueCompletedRows tr.cw-row td:nth-child(5){grid-area:completed;justify-self:end;align-self:start;text-align:right;}
+  #queueCompletedRows tr.cw-row td:nth-child(3){grid-area:service;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;}
+  #queueCompletedRows tr.cw-row td:nth-child(4){grid-area:staff;align-self:center;}
+  #queueCompletedRows tr.cw-row td:nth-child(6){grid-area:action;justify-self:end;align-self:center;}
+  #queueCompletedRows tr:not(.cw-row) td{padding:24px 0;}
+
+  #queueCompletedRows tr.cw-row td:nth-child(1)::before{content:"Vehicle";}
+  #queueCompletedRows tr.cw-row td:nth-child(2)::before{content:"Customer";}
+  #queueCompletedRows tr.cw-row td:nth-child(3)::before{content:"Service";}
+  #queueCompletedRows tr.cw-row td:nth-child(4)::before{content:"Staff";}
+  #queueCompletedRows tr.cw-row td:nth-child(5)::before{content:"Completed";}
+  #queueCompletedRows tr.cw-row td:nth-child(1)::before,
+  #queueCompletedRows tr.cw-row td:nth-child(2)::before,
+  #queueCompletedRows tr.cw-row td:nth-child(3)::before,
+  #queueCompletedRows tr.cw-row td:nth-child(4)::before,
+  #queueCompletedRows tr.cw-row td:nth-child(5)::before{
+    display:block;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:#94a3b8;
+    margin-bottom:3px;
+  }
+}
+
+/* Waitlist table — same Start Wash / delete actions as before, now in table rows. */
+#queueWaitlistRows .wl-cell{display:flex;align-items:center;gap:10px;}
+#queueWaitlistRows .wl-icon{width:36px;height:36px;border-radius:9px;background:#FFF1E8;display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;}
+#queueWaitlistRows .wl-icon svg{width:18px;height:18px;}
+#queueWaitlistRows .wl-customer{color:#171a20;font-size:13px;font-weight:700;line-height:1.25;text-transform:capitalize;}
+#queueWaitlistRows .wl-vehicle{color:#171a20;font-size:13px;font-weight:600;line-height:1.3;}
+#queueWaitlistRows .wl-service{color:#70757e;font-size:12.5px;line-height:1.3;}
+#queueWaitlistRows .wl-actions{display:flex;align-items:center;gap:6px;}
+#queueWaitlistRows .wl-delete-btn{width:36px;padding:0;background:#fdecec;color:#991b1b;border:none;flex-shrink:0;}
+#queueWaitlistRows .wl-delete-btn:hover{background:#fbd5d5;color:#7f1d1d;}
+#queueWaitlistRows .wl-delete-btn svg{width:16px;height:16px;}
+#queueWaitlistRows .wl-edit-btn{width:36px;padding:0;background:#EFF6FF;color:#1D4ED8;border:none;flex-shrink:0;}
+#queueWaitlistRows .wl-edit-btn:hover{background:#dbeafe;color:#1e40af;}
+#queueWaitlistRows .wl-edit-btn svg{width:16px;height:16px;}
+
+   .card{
+      margin-bottom: 12px!important;
+   }
+
+.cw-search{max-width: 346px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #e2e6ec;
+  background: #f6f7f9;
+  border-radius: 10px;
+  transition: border-color .15s ease;
+  width: 100%;}
+.cw-search:focus-within{border-color:#C9D3E2;background:#fff;}
+.cw-search i{font-size:15px;color:#94a3b8;flex-shrink:0;}
+.cw-search input{background:none;border:none;outline:none;color:#172033;
+   font-family:var(--font);font-size:13px;width:100%; text-transform: capitalize;}
+.cw-search input::placeholder{color:#94a3b8;}
+@media (max-width:768px){
+  .cw-search{width:100%;}
+  .card-title{flex-wrap:wrap;row-gap:10px;}
+}
+
+/* Waitlist — mobile card layout (replaces cramped table columns on small screens) */
+@media (max-width:640px){
+  #waitlistTableScroll{height:auto;overflow:visible;border:none;border-radius:0;background:transparent;}
+  #waitlistTableScroll table,
+  #waitlistTableScroll tbody,
+  #waitlistTableScroll tr,
+  #waitlistTableScroll td{display:block;width:100%;}
+  #waitlistTableScroll thead{display:none;}
+
+  #queueWaitlistRows tr.wl-row{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+    box-shadow:0 1px 4px rgba(15,23,42,.05);
+  }
+  #queueWaitlistRows tr.wl-row td{padding:0;border-bottom:none;}
+  #queueWaitlistRows tr.wl-row td:not(:last-child){padding-bottom:10px;border-bottom:0.5px dashed #e5e7eb;}
+
+  #queueWaitlistRows .wl-service{margin-top:2px;}
+  #queueWaitlistRows .wl-actions{padding-top:2px;}
+  #queueWaitlistRows .wl-actions .start-wash-btn{flex:1;justify-content:center;}
+
+  #queueWaitlistRows tr.wl-row td:nth-child(1)::before{content:"Vehicle";}
+  #queueWaitlistRows tr.wl-row td:nth-child(2)::before{content:"Customer";}
+  #queueWaitlistRows tr.wl-row td:nth-child(3)::before{content:"Service";}
+  #queueWaitlistRows tr.wl-row td:nth-child(1)::before,
+  #queueWaitlistRows tr.wl-row td:nth-child(2)::before,
+  #queueWaitlistRows tr.wl-row td:nth-child(3)::before{
+    display:block;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:#94a3b8;
+    margin-bottom:3px;
+  }
+
+  #queueWaitlistRows tr:not(.wl-row) td{padding:24px 0;}
+}
+
+.wl-service{
+  color: #000;
+}
+
+#completedJobModalBody {
+  gap: 0;
+}
+
+

@@ -1,0 +1,130 @@
+/* Page-specific styles for expenses.html — all shared component styles live in common.css */
+
+/* ---------- HEADER ---------- */
+.exp-header-left{display:flex;align-items:center;gap:12px;}
+.exp-header-icon{width:44px;height:44px;border-radius:12px;background:#FFF1E8;color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+
+/* ---------- KPI CARDS ---------- */
+.exp-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px;}
+.exp-kpi{display:flex;align-items:center;gap:12px;padding:16px 18px;background:#fff;border:1px solid #eef0f3;border-radius:16px;box-shadow:0 1px 3px 0 rgba(16,24,40,0.05);}
+.exp-kpi-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.exp-kpi-label{font-size:12.5px;color:#667085;font-weight:500;}
+.exp-kpi-value{font-size:22px;font-weight:700;color:#101828;margin-top:2px;line-height:1.15;}
+.exp-kpi-sub{font-size:11.5px;color:#98a2b3;margin-top:3px;}
+
+@media (max-width:1100px){ .exp-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media (max-width:520px){ .exp-kpi-grid{grid-template-columns:1fr;} }
+
+/* ---------- TOOLBAR ---------- */
+.exp-toolbar{flex-wrap:wrap;}
+.exp-search-box{flex:1 1 260px;min-width:200px;display:flex;
+    align-items:center;gap:8px;border:1px solid #e2e6ec;
+    border-radius:10px;padding:0 12px;height:36px; background: #fff;}
+.exp-search-box i{color:#98a2b3;font-size:15px;}
+.exp-search-box input{ text-transform: capitalize; flex:1;border:none;outline:none;font-size:13px;color:#172033;height:100%;background:transparent;}
+
+.exp-filter-field select{height:36px;padding:0 10px;border:1px solid #e2e6ec;border-radius:10px;background:#fff;color:#344054;font-size:13px;cursor:pointer;}
+
+.exp-date-range{margin-left:auto;}
+.exp-date-range-btn{display:flex;align-items:center;gap:8px;height:38px;padding:0 12px;border:1px solid #e2e6ec;border-radius:10px;background:#fff;color:#344054;font-size:13px;font-weight:500;cursor:pointer;}
+.exp-date-range-btn i:first-child{color:#98a2b3;font-size:15px;}
+.exp-date-range-btn i:last-child{color:#98a2b3;font-size:13px;}
+
+/* ---------- SORTABLE HEADERS ---------- */
+.exp-sortable{cursor:pointer;user-select:none;white-space:nowrap;}
+.exp-sortable:hover{color:#fff;}
+.exp-sort-icon{opacity:.55;margin-left:3px;vertical-align:-1px;}
+.exp-sortable.sort-active .exp-sort-icon{opacity:1;color:var(--accent);}
+
+/* ---------- DATE CELL ---------- */
+.exp-date-cell{display:flex;align-items:center;gap:10px;}
+.exp-date-day{font-size:19px;font-weight:700;color:#101828;line-height:1;min-width:22px;}
+.exp-date-month{font-size:12.5px;font-weight:600;color:#101828;}
+.exp-date-sub{font-size:11px;color:#98a2b3;margin-top:1px;}
+
+/* ---------- NAME / DETAILS CELL ---------- */
+.exp-name-cell{display:flex;align-items:center;gap:10px;}
+.exp-icon-badge{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.exp-name{font-size:13.5px;font-weight:600;color:#101828;text-transform:none;}
+.exp-sub{font-size:12px;color:#98a2b3;margin-top:1px;text-transform:none;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* ---------- CATEGORY PILL ---------- */
+.exp-cat-pill{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px;text-transform:none;}
+
+/* ---------- AMOUNT / NOTES ---------- */
+.exp-amount{font-weight:700;color:#101828;font-family:var(--mono);}
+.exp-notes{color:#98a2b3;font-size:12.5px;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-transform:none;}
+
+/* ---------- ACTION BUTTONS ---------- */
+.exp-actions{display:flex;align-items:center;gap:6px;}
+.exp-action-btn{width:30px;height:30px;border-radius:8px;border:1px solid #e2e6ec;background:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;}
+.exp-action-btn.edit{color:#2563EB;border-color:#bfdbfe;}
+.exp-action-btn.edit:hover{background:#EFF6FF;}
+.exp-action-btn.delete{color:#DC2626;border-color:#fecaca;}
+.exp-action-btn.delete:hover{background:#FEF2F2;}
+
+/* ---------- PAGINATION ---------- */
+.exp-page-numbers{display:flex;gap:4px;}
+.exp-page-btn{width:36px;height:36px;border-radius:8px;border:1px solid #e2e6ec;background:#fff;color:#475467;font-size:12.5px;font-weight:600;cursor:pointer;}
+.exp-page-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.table-wrap {
+.table-scroll {
+    height: calc(100dvh - 417px) !important;
+  }
+}
+
+/* Expenses table — mobile card layout (replaces cramped 7-column table on small screens) */
+@media (max-width:640px){
+  #expenses .table-wrap{border:none;border-radius:0;background:transparent;overflow:visible;}
+  #expenses .table-scroll{height:auto!important;overflow:visible;border:none;}
+  #expenses .table-scroll table,
+  #expenses .table-scroll tbody,
+  #expenses .table-scroll td{display:block;width:100%;}
+  #expenses .table-scroll tr{width:100%;}
+  #expenses .table-scroll thead{display:none;}
+  #expenses .table-pagination{border-top:none;margin-top:10px;background:#fff;border:1px solid #ddd;border-radius:12px;}
+
+  #expTableBody tr{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "date cat"
+      "name name"
+      "branch amount"
+      "notes notes"
+      "actions actions";
+    column-gap:14px;
+    row-gap:8px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+    box-shadow:0 1px 4px rgba(15,23,42,.05);
+  }
+  #expTableBody tr td{padding:0;border-bottom:none;}
+
+  #expTableBody tr td:nth-child(1){grid-area:date;align-self:center;}
+  #expTableBody tr td:nth-child(3){grid-area:cat;justify-self:end;align-self:center;}
+  #expTableBody tr td:nth-child(2){grid-area:name;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;}
+  #expTableBody tr td:nth-child(2) .exp-sub{display:none;}
+  #expTableBody tr td:nth-child(4){grid-area:branch;font-size:13px;color:#171a20;}
+  #expTableBody tr td:nth-child(5){grid-area:amount;justify-self:end;text-align:right;font-size:15px;}
+  #expTableBody tr td:nth-child(4)::before,
+  #expTableBody tr td:nth-child(5)::before{display:block;font-size:10.5px;color:#98a2b3;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:2px;}
+  #expTableBody tr td:nth-child(4)::before{content:'Branch';}
+  #expTableBody tr td:nth-child(5)::before{content:'Amount';}
+  #expTableBody tr td:nth-child(6){grid-area:notes;font-size:12.5px;color:#98a2b3;max-width:none;white-space:normal;overflow:visible;text-overflow:clip;padding-top:8px;border-top:0.5px dashed #e5e7eb;}
+  #expTableBody tr td:nth-child(7){grid-area:actions;}
+  #expTableBody tr td:nth-child(7) .exp-actions{justify-content:flex-end;}
+}
+
+@media (max-width: 576px) {
+  .toolbar {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    padding: 0px 0px 10px !important;
+    box-shadow: none;
+    border: none;
+  }
+}

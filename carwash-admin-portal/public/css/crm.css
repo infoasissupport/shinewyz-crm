@@ -1,0 +1,86 @@
+/* Page-specific styles for crm.html — all shared component styles live in common.css */
+
+#crmTableBody .qsub{margin-top:1px;}
+
+.row-delete-btn{width:32px;height:32px;border-radius:10px;border:none;background:#fdecec;color:#991b1b;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;}
+.row-delete-btn:hover{background:#fbd5d5;color:#7f1d1d;}
+
+/* Header row: title left, search centered, export button right */
+.crm-header{display:grid;grid-template-columns:1fr minmax(0,480px) 1fr;align-items:center;gap:16px;}
+.crm-header .view-title{justify-self:start;}
+.crm-header #crmExportBtn{justify-self:end;}
+
+.crm-header-search{justify-self:center;width:100%;display:flex;align-items:center;gap:8px;
+  height:36px;padding:0 14px;border:1px solid #C9D3E2;border-radius:10px;background:#fff;}
+.crm-header-search:focus-within{border-color:var(--accent);}
+.crm-header-search i{font-size:16px;color:#8b93a3;flex-shrink:0;}
+.crm-header-search input { text-transform: capitalize; flex:1;min-width:0;background:none;border:none;outline:none;font-family:var(--font);font-size:14px;color:#172033;}
+.crm-header-search input::placeholder{color:#94a3b8;}
+
+@media (max-width:860px){
+  .crm-header{display:flex;flex-wrap:wrap;row-gap:10px;}
+  .crm-header .view-title{order:1;flex:1 1 auto;justify-self:auto;}
+  .crm-header #crmExportBtn{order:2;flex:0 0 auto;justify-self:auto;}
+  .crm-header-search{order:3;flex:1 1 100%;width:100%;justify-self:auto;max-width:none;}
+}
+
+/* Customers table — mobile card layout (replaces cramped 8-column table on small screens) */
+@media (max-width:767px){
+
+.table-wrap{
+border: none;
+}
+.table-scroll{
+  border: none;
+}
+  #crm .table-wrap{ padding-bottom: 40px; border:none;border-radius:0;
+    background:transparent;overflow:scroll; height: calc(100dvh - 211px);}
+  #crm .table-scroll{height:auto!important;overflow:visible;}
+  #crm .table-scroll table,
+  #crm .table-scroll tbody,
+  #crm .table-scroll td{display:block;width:100%;}
+  #crm .table-scroll tr{width:100%;}
+  #crm .table-scroll thead{display:none;}
+  #crm .table-pagination{border-top:none;margin-top:10px;background:#fff;border:1px solid #ddd;border-radius:12px;}
+
+  #crmTableBody tr{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "vehname cartype"
+      "vehnum lastwash"
+      "customer action";
+    column-gap:14px;
+    row-gap:8px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+    box-shadow:0 1px 4px rgba(15,23,42,.05);
+  }
+  #crmTableBody tr td{padding:0;border-bottom:none;color:#171a20;}
+
+  #crmTableBody tr td:nth-child(2){grid-area:vehname;font-size:15px;font-weight:700;align-self:start;}
+  #crmTableBody tr td:nth-child(5){grid-area:cartype;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#475569;justify-self:end;align-self:start;}
+  #crmTableBody tr td:nth-child(3){grid-area:vehnum;font-size:13px;color:#70757e;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;}
+  #crmTableBody tr td:nth-child(4){display:none;}
+  #crmTableBody tr td:nth-child(6){grid-area:lastwash;font-size:13px;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;justify-self:end;text-align:right;}
+  #crmTableBody tr td:nth-child(1){grid-area:customer;font-size:13.5px;font-weight:700;align-self:center;}
+  #crmTableBody tr td:nth-child(7){grid-area:action;align-self:center;}
+  #crmTableBody tr td:nth-child(7) > div{justify-content:flex-end;}
+
+  #crmTableBody tr td:nth-child(1)::before{content:"Customer";}
+  #crmTableBody tr td:nth-child(6)::before{content:"Last Wash";}
+  #crmTableBody tr td:nth-child(1)::before,
+  #crmTableBody tr td:nth-child(6)::before{
+    display:block;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:#94a3b8;
+    margin-bottom:2px;
+  }
+}
+

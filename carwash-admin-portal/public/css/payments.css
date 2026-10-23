@@ -1,0 +1,151 @@
+/* Page-specific styles for payments.html — all shared component styles live in common.css */
+
+.inv-row{cursor:pointer;}
+.chip{
+  height: 36px;
+}
+.toolbar input{
+  height: 36px;
+}
+/* ---------- INVOICE PREVIEW CARD ---------- */
+.inv-preview-meta{font-size:12px;color:#70757e;margin-bottom:12px;}
+
+.inv-preview-box{background:#f9fafb;border:1px solid #eef1f5;border-radius:12px;padding:2px 14px;margin-bottom:14px;}
+.inv-preview-row{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:10px 0;border-bottom:1px solid #eef1f5;color:#171a20;}
+.inv-preview-row span:first-child{color:#70757e;}
+.inv-preview-total{display:flex;justify-content:space-between;gap:10px;font-size:16px;font-weight:700;padding:12px 0;color:#171a20;}
+
+.inv-preview-actions{display:flex;gap:8px;}
+.inv-preview-delete{background:#fdecec;color:#991b1b;border:none;padding:0 14px;}
+.inv-preview-delete:hover{background:#fbd5d5;color:#7f1d1d;}
+
+.inv-preview-payment{margin-top:16px;border-top:1px solid #eef1f5;padding-top:16px;}
+.inv-preview-payment label{display:block;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px;font-weight:700;}
+
+/* ---------- FILTER DROPDOWN ---------- */
+.pay-filter-field{display:flex;align-items:center;gap:6px;font-size:13px;color:#667085;font-weight:500;}
+.pay-filter-field select{height:36px;padding:0 10px;border:1px solid #e2e6ec;border-radius:10px;background:#fff;color:#344054;font-size:13px;cursor:pointer;}
+
+/* ---------- CUSTOM DATE RANGE FILTER ---------- */
+#customRangeChip{display:flex;align-items:center;gap:5px;}
+#customRangeChip i{font-size:13px;transition:transform .15s ease;}
+#customRangeDropdown:has(#invDateRangeMenu.open) #customRangeChip i{transform:rotate(180deg);}
+/* position:fixed + JS-computed coordinates (see payments.js) so this dropdown
+   escapes .table-wrap's overflow:hidden instead of being clipped by it. */
+#invDateRangeMenu{position:fixed;min-width:230px;width:230px;right:auto;}
+#invDateRangeMenu .field{margin-bottom:10px;}
+#invDateRangeMenu .field:last-of-type{margin-bottom:0;}
+
+/* Invoice table — mobile card layout (replaces cramped 5-column table on small screens) */
+@media (max-width:640px){
+  #payments .table-wrap{border:none;border-radius:0;background:transparent;overflow:visible;}
+  #payments .table-scroll{height:auto!important;overflow:visible; border: none;}
+  #payments .table-scroll table,
+  #payments .table-scroll tbody,
+  #payments .table-scroll td{display:block;width:100%;}
+  #payments .table-scroll tr{width:100%;}
+  #payments .table-scroll thead{display:none;}
+  #payments .table-pagination{border-top:none;margin-top:10px;background:#fff;border:1px solid #ddd;border-radius:12px;}
+
+  #invoiceTableBody tr{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "invoiceid status"
+      "customer customer"
+      "amount method";
+    column-gap:14px;
+    row-gap:8px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+    box-shadow:0 1px 4px rgba(15,23,42,.05);
+  }
+  #invoiceTableBody tr.selected{border-color:var(--accent);}
+  #invoiceTableBody tr td{padding:0;border-bottom:none;color:#171a20;}
+
+  #invoiceTableBody tr td:nth-child(1){grid-area:invoiceid;font-size:14px;align-self:center;}
+  #invoiceTableBody tr td:nth-child(5){grid-area:status;justify-self:end;align-self:center;}
+  #invoiceTableBody tr td:nth-child(2){grid-area:customer;font-size:13px;color:#70757e;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;}
+  #invoiceTableBody tr td:nth-child(3){grid-area:amount;font-size:15px;font-weight:700;padding-top:2px;}
+  #invoiceTableBody tr td:nth-child(4){grid-area:method;justify-self:end;align-self:center;}
+}
+
+.grid-2{
+  .table-scroll {
+    height: calc(100dvh - 300px) !important;
+}
+
+}
+
+.card{
+  border-radius: 10px;
+}
+
+#payments .view-header{
+  padding: 0px!important;
+}
+
+/* Keep the search/filter toolbar pinned above the invoice rows while
+   scrolling, sitting just below the sticky page header (.view-header).
+   .table-wrap's overflow:hidden (used to clip the toolbar's square top
+   corners to its rounded card shape) would otherwise become the sticky
+   containing block instead of the actual scrolling ancestor (.view), so
+   it's turned off here and the toolbar rounds its own top corners instead. */
+#payments .table-wrap{overflow: visible;}
+#payments .toolbar{
+
+  background: #fff;
+  border-radius: 10px;
+}
+
+.paymentsCommonMainAll{
+overflow: auto;
+  height: calc(100dvh - 177px);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  .tablefiletrFlex{
+    display: flex;
+    flex-direction: column;
+    gap:12px;
+ 
+  }
+}
+
+.table-wrap {
+   .table-scroll {
+    height: calc(100dvh - 313px) !important;
+    overflow: auto;
+  }
+}
+
+/* Below this width the 2fr/1fr split (invoice list + preview card) squeezes
+   both panels too narrow to use — stack them full-width instead and let the
+   page's own scroll (.view) carry the height, same as every other page's
+   mobile layout. */
+@media (max-width:992px){
+  .paymentsCommonMainAll{
+    grid-template-columns: 1fr;
+overflow: auto;
+    height: calc(100dvh - 179px);
+  }
+  .table-wrap .table-scroll{
+    height: 60vh !important;
+  }
+  .toolbar{
+    align-items: stretch;
+  }
+  .toolbar input{
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+@media (max-width:767px){
+  .paymentsCommonMainAll{
+
+    height: calc(100dvh - 204px);
+  }
+}

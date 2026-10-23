@@ -1,0 +1,535 @@
+import 'package:flutter/material.dart';
+import '../models/models.dart';
+import '../services/api_service.dart';
+import 'jobcard_detail_screen.dart';
+
+class OperationsTab extends StatefulWidget {
+  final String currentBranchCode;
+
+  const OperationsTab({Key? key, required this.currentBranchCode})
+      : super(key: key);
+
+  @override
+  State<OperationsTab> createState() => _OperationsTabState();
+}
+
+class _OperationsTabState extends State<OperationsTab>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  List<Booking> _bookings = [];
+  List<JobCard> _jobCards = [];
+  List<Service> _services = [];
+  bool _isLoading = true;
+  bool _showAllJobCards = false;
+  final Set<int> _processingBookings = {};
+  final Set<String> _processingJobCards = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+    _loadOperationsData();
+  }
+
+  Future<void> _loadOperationsData() async {
+    final code = widget.currentBranchCode;
+    final bookings = await ApiService.fetchBookings(branchCode: code);
+    final jobcards = await ApiService.fetchJobCards(branchCode: code);
+    final services = await ApiService.fetchServices();
+
+    if (mounted) {
+      setState(() {
+        _bookings = bookings;
+        _jobCards = jobcards;
+        _services = services;
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8FAFC),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text('Operations',
+            style: TextStyle(
+                color: Color(0xFF0F172A), fontWeight: FontWeight.w800)),
+        bottom: TabBar(
+          controller: _tabController,
+          labelColor: const Color(0xFFFF6B00),
+          unselectedLabelColor: const Color(0xFF64748B),
+          indicatorColor: const Color(0xFFFF6B00),
+          indicatorWeight: 3,
+          tabs: const [
+            Tab(text: 'Live Queue'),
+            Tab(text: 'Job Cards'),
+            Tab(text: 'Bookings'),
+            Tab(text: 'Services'),
+          ],
+        ),
+      ),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(color: Color(0xFFFF6B00)))
+          : TabBarView(
+              controller: _tabController,
+              children: [
+                _buildQueueList(),
+                _buildJobCardsBoard(),
+                _buildBookingsList(),
+                _buildServicesList(),
+              ],
+            ),
+    );
+  }
+
+  Widget _buildQueueList() {
+    final activeQueue = _bookings
+        .where((b) => b.status == 'waiting' || b.status == 'confirmed')
+        .toList();
+    if (activeQueue.isEmpty) {
+      return const Center(
+        child: Text('No vehicles in waitlist queue',
+            style: TextStyle(color: Color(0xFF94A3B8))),
+      );
+    }
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: activeQueue.length,
+      itemBuilder: (context, i) {
+        final b = activeQueue[i];
+        return Card(
+          margin: const EdgeInsets.only(bottom: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+            side: const BorderSide(color: Color(0xFFE2E8F0)),
+          ),
+          elevation: 0,
+          child: ListTile(
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            title: Text(b.customer,
+                style:
+                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+            subtitle: Builder(
+              builder: (ctx) {
+                String timeStr = '';
+                if (b.createdAt != null) {
+                  try {
+                    final d = DateTime.parse(b.createdAt!).toLocal();
+                    final hour = d.hour % 12 == 0 ? 12 : d.hour % 12;
+                    final min = d.minute.toString().padLeft(2, '0');
+                    final ampm = d.hour >= 12 ? 'PM' : 'AM';
+                    timeStr = ' • $hour:$min $ampm';
+                  } catch (_) {}
+                }
+                return Text('${b.service}$timeStr • ${b.vehicle}',
+                  style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)));
+              }
+            ),
+            trailing: ElevatedButton(
+              onPressed: _processingBookings.contains(b.id)
+                  ? null
+                  : () => _showAssignModal(b),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFF6B00),
+                disabledBackgroundColor:
+                    const Color(0xFFFF6B00).withValues(alpha: 0.5),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+              ),
+              child: _processingBookings.contains(b.id)
+                  ? const SizedBox(
+                      width: 14,
+                      height: 14,
+                      child: CircularProgressIndicator(
+                          color: Colors.white, strokeWidth: 2))
+                  : const Text('Start Wash',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700)),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildJobCardsBoard() {
+    final now = DateTime.now();
+    final todayStr = "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
+    
+    // Filter logic
+    final filteredJobCards = _jobCards.where((jc) {
+      if (_showAllJobCards) return true;
+      // JobCards have a startedAt or createdAt we could parse? 
+      // Actually they don't have createdAt in the flutter model right now.
+      // Wait, let's just check the date from the ID or add createdAt to JobCard model!
+      return true;
+    }).toList();
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Text('Show All Days', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+              Switch(
+                value: _showAllJobCards,
+                activeColor: const Color(0xFFFF6B00),
+                onChanged: (val) {
+                  setState(() => _showAllJobCards = val);
+                },
+              ),
+            ],
+          ),
+        ),
+        if (filteredJobCards.isEmpty)
+          const Expanded(
+            child: Center(
+              child: Text('No job cards found', style: TextStyle(color: Color(0xFF94A3B8))),
+            ),
+          )
+        else
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: filteredJobCards.length,
+              itemBuilder: (context, i) {
+                final jc = filteredJobCards[i];
+        Color stageColor = const Color(0xFF3B82F6);
+        if (jc.stage == 'completed') stageColor = const Color(0xFF10B981);
+        if (jc.stage == 'inprogress') stageColor = const Color(0xFFFF6B00);
+        if (jc.stage == 'cancelled') stageColor = Colors.red;
+
+        return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => JobCardDetailScreen(
+                    jobCard: jc,
+                    onUpdated: () => _loadOperationsData(),
+                  ),
+                ),
+              );
+            },
+            borderRadius: BorderRadius.circular(14),
+            child: Card(
+              margin: const EdgeInsets.only(bottom: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+                side: const BorderSide(color: Color(0xFFE2E8F0)),
+              ),
+              elevation: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(jc.id,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w800, fontSize: 14)),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: stageColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            jc.stage.toUpperCase(),
+                            style: TextStyle(
+                                color: stageColor,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(jc.vehicle,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 15)),
+                    Text('${jc.service} • ${jc.bay}',
+                        style: const TextStyle(
+                            fontSize: 12, color: Color(0xFF64748B))),
+                    const SizedBox(height: 12),
+                    if (jc.stage != 'completed')
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: OutlinedButton(
+                          onPressed: _processingJobCards.contains(jc.id)
+                              ? null
+                              : () async {
+                                  setState(
+                                      () => _processingJobCards.add(jc.id));
+                                  try {
+                                    final next = jc.stage == 'assigned'
+                                        ? 'inprogress'
+                                        : 'completed';
+                                    await ApiService.updateJobCardStage(
+                                        jc.id, next);
+                                    await _loadOperationsData();
+                                  } catch (e) {
+                                    if (mounted) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            content: Text(e
+                                                .toString()
+                                                .replaceAll(
+                                                    'Exception: ', ''))),
+                                      );
+                                    }
+                                  } finally {
+                                    if (mounted)
+                                      setState(() =>
+                                          _processingJobCards.remove(jc.id));
+                                  }
+                                },
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(
+                              color: _processingJobCards.contains(jc.id)
+                                  ? const Color(0xFFFF6B00)
+                                      .withValues(alpha: 0.5)
+                                  : const Color(0xFFFF6B00),
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                          ),
+                          child: _processingJobCards.contains(jc.id)
+                              ? const SizedBox(
+                                  width: 14,
+                                  height: 14,
+                                  child: CircularProgressIndicator(
+                                      color: Color(0xFFFF6B00), strokeWidth: 2))
+                              : Text(
+                                  jc.stage == 'assigned'
+                                      ? 'Start Wash'
+                                      : 'Mark Completed',
+                                  style: TextStyle(
+                                    color: _processingJobCards.contains(jc.id)
+                                        ? const Color(0xFFFF6B00)
+                                            .withValues(alpha: 0.5)
+                                        : const Color(0xFFFF6B00),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ));
+      },
+    );
+  }
+
+  Widget _buildBookingsList() {
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: _bookings.length,
+      itemBuilder: (context, i) {
+        final b = _bookings[i];
+        return Card(
+          margin: const EdgeInsets.only(bottom: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+            side: const BorderSide(color: Color(0xFFE2E8F0)),
+          ),
+          elevation: 0,
+          child: ListTile(
+            title: Text(b.customer,
+                style: const TextStyle(fontWeight: FontWeight.w700)),
+            subtitle: Text('${b.service} • ${b.vehicle}'),
+            trailing: Text(b.status.toUpperCase(),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11,
+                    color: Color(0xFFFF6B00))),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildServicesList() {
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: _services.length,
+      itemBuilder: (context, i) {
+        final s = _services[i];
+        return Card(
+          margin: const EdgeInsets.only(bottom: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+            side: const BorderSide(color: Color(0xFFE2E8F0)),
+          ),
+          elevation: 0,
+          child: ListTile(
+            title: Text(s.name,
+                style: const TextStyle(fontWeight: FontWeight.w700)),
+            subtitle:
+                Text('${s.category} • ${s.duration} mins • ${s.staff} Staff'),
+            trailing: Text('₹${s.price.toInt()}',
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF0F172A))),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _showAssignModal(Booking b) async {
+    final staffList = await ApiService.fetchStaff();
+    final baysList = await ApiService.fetchBays();
+
+    if (!mounted) return;
+
+    String selectedStaff =
+        staffList.isNotEmpty ? staffList.first['name'] : 'Unassigned';
+    String selectedBay = baysList.isNotEmpty ? baysList.first['name'] : 'Bay 1';
+
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              title: const Text('Assign Wash',
+                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Select Bay',
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF334155))),
+                  const SizedBox(height: 6),
+                  DropdownButtonFormField<String>(
+                    value: selectedBay,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xFFF8FAFC),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE2E8F0))),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 14),
+                    ),
+                    items: baysList.isNotEmpty
+                        ? baysList
+                            .map((b) => DropdownMenuItem<String>(
+                                value: b['name'], child: Text(b['name'])))
+                            .toList()
+                        : [
+                            const DropdownMenuItem(
+                                value: 'Bay 1', child: Text('Bay 1'))
+                          ],
+                    onChanged: (val) {
+                      if (val != null) setModalState(() => selectedBay = val);
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('Assign Staff',
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF334155))),
+                  const SizedBox(height: 6),
+                  DropdownButtonFormField<String>(
+                    value: selectedStaff,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xFFF8FAFC),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFE2E8F0))),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 14),
+                    ),
+                    items: staffList.isNotEmpty
+                        ? staffList
+                            .map((s) => DropdownMenuItem<String>(
+                                value: s['name'], child: Text(s['name'])))
+                            .toList()
+                        : [
+                            const DropdownMenuItem(
+                                value: 'Unassigned', child: Text('Unassigned'))
+                          ],
+                    onChanged: (val) {
+                      if (val != null) setModalState(() => selectedStaff = val);
+                    },
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: const Text('Cancel',
+                      style: TextStyle(color: Color(0xFF64748B))),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFF6B00),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: const Text('Start Wash',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w700)),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+
+    if (result == true && mounted) {
+      setState(() => _processingBookings.add(b.id));
+      try {
+        final ok = await ApiService.startWash(
+          bookingId: b.id,
+          customer: b.customer,
+          phone: b.phone,
+          vehicle: b.vehicle,
+          service: b.service,
+          bay: selectedBay,
+          staff: selectedStaff,
+        );
+        if (ok) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Wash assigned! Moved to $selectedBay.')),
+            );
+          }
+          await _loadOperationsData();
+        }
+      } finally {
+        if (mounted) setState(() => _processingBookings.remove(b.id));
+      }
+    }
+  }
+}
