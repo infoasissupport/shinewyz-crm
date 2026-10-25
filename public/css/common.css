@@ -530,9 +530,11 @@ padding: 12px 9px;
   margin: 0 0 12px;
   position: sticky;
   top: 0;
-  z-index: 2;
- 
-
+  z-index: 5;
+  /* Solid page colour (.main's #f4f4f47d over white) so content scrolling underneath doesn't show through;
+     the shadows also cover the .view padding above and the 12px gap below the header */
+  background: #fafafa;
+  box-shadow: 0 -16px 0 #fafafa, 0 12px 0 #fafafa;
  }
 .view-title{font-size:24px;font-weight:700;letter-spacing:-0.3px;color: #000;
 @media (max-width: 768px) {
