@@ -173,9 +173,6 @@
     if (!pager) return;
 
     var html = '<button type="button" class="btn" id="jcPagePrev"' + (currentPage <= 1 ? ' disabled' : '') + '><i class="ti ti-chevron-down" style="transform:rotate(90deg);display:inline-block;"></i></button>';
-    for (var p = 1; p <= totalPages; p++) {
-      html += '<button type="button" class="btn jc-page-num' + (p === currentPage ? ' active' : '') + '" data-page="' + p + '">' + p + '</button>';
-    }
     html += '<button type="button" class="btn" id="jcPageNext"' + (currentPage >= totalPages ? ' disabled' : '') + '><i class="ti ti-chevron-down" style="transform:rotate(-90deg);display:inline-block;"></i></button>';
     pager.innerHTML = html;
 
@@ -183,12 +180,6 @@
     var nextBtn = document.getElementById('jcPageNext');
     if (prevBtn) prevBtn.addEventListener('click', function () { currentPage--; renderTable(); });
     if (nextBtn) nextBtn.addEventListener('click', function () { currentPage++; renderTable(); });
-    pager.querySelectorAll('.jc-page-num').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        currentPage = Number(btn.getAttribute('data-page'));
-        renderTable();
-      });
-    });
   }
 
   function renderTable() {

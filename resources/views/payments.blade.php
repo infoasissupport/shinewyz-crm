@@ -97,7 +97,6 @@
         <span id="invoicePageInfo"></span>
         <div class="pagination-btns">
           <button type="button" class="btn" id="invoicePrevBtn"><i class="ti ti-chevron-left"></i>Prev</button>
-          <div class="pagination-pages" id="invoicePageNums"></div>
           <button type="button" class="btn" id="invoiceNextBtn">Next<i class="ti ti-chevron-right"></i></button>
         </div>
       </div>

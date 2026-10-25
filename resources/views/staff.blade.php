@@ -109,7 +109,6 @@
       <span id="staffPageInfo"></span>
       <div class="pagination-btns">
         <button type="button" class="btn" id="staffPrevBtn"><i class="ti ti-chevron-down" style="transform:rotate(90deg);display:inline-block;"></i></button>
-        <div class="stf-page-numbers" id="staffPageNumbers"></div>
         <button type="button" class="btn" id="staffNextBtn"><i class="ti ti-chevron-down" style="transform:rotate(-90deg);display:inline-block;"></i></button>
       </div>
     </div>
