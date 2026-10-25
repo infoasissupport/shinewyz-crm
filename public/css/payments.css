@@ -50,7 +50,7 @@
 #payments .view-header{
   padding: 0px!important;
 }
-.pay-header-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.pay-header-actions{display:flex;align-items:center;gap:12px;}
 
 /* Keep the search/filter toolbar pinned above the invoice rows while
    scrolling, sitting just below the sticky page header (.view-header).
@@ -293,3 +293,9 @@ overflow: initial;
 .pay-kpi--blue{background:#EFF6FF;color:#1D4ED8;}
 .pay-kpi--purple{background:#F5F3FF;color:#6D28D9;}
 .pay-kpi--amber{background:#FFF7ED;color:#C2410C;}
+
+@media (max-width:767px){
+.view{
+  height: calc(100dvh - 172px);
+}
+}
