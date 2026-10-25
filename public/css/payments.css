@@ -93,8 +93,8 @@ overflow: auto;
 @media (max-width:1199px){
   .paymentsCommonMainAll{
     grid-template-columns: 1fr;
-overflow: auto;
-height: calc(100dvh - 179px);
+overflow: initial;
+    height: 100%;
   }
   .table-wrap .table-scroll{
     height: 60vh !important;
@@ -108,12 +108,7 @@ height: calc(100dvh - 179px);
   }
 }
 
-@media (max-width:767px){
-    .paymentsCommonMainAll{
-height: calc(100dvh - 277px);
-    }
 
-}
 
 /* =====================================================================
    Payments redesign — toolbar, card-style rows, pagination, preview
@@ -226,6 +221,9 @@ height: calc(100dvh - 277px);
 
 /* ---------- Tablet & mobile: rows become cards (2 per row, 1 per row on phones) ---------- */
 @media (max-width:1199px){
+  .pay-kpi-grid{
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
   #payments .toolbar{flex-wrap:wrap;}
   #payments .toolbar input[placeholder^="Search" i]{max-width:none;flex-basis:100%;}
   #payments .table-wrap{border:none;background:transparent;}
@@ -268,7 +266,9 @@ height: calc(100dvh - 277px);
 }
 
 /* KPI Cards — same design as the dashboard stat cards (.dash-stat-card); bottom wave lives in common.css */
-.pay-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:0px;}
+.pay-kpi-grid{display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;margin-bottom:12px;}
 @media (max-width:991px){
   .pay-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
 }
