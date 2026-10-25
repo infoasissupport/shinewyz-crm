@@ -317,7 +317,6 @@
       tr.addEventListener('click', function () { selectInvoice(inv.id); });
       tableBody.appendChild(tr);
     });
-    renderPageNumbers(totalPages);
 
     if (emptyState) emptyState.style.display = filtered.length ? 'none' : 'block';
     if (pageInfo) {
@@ -331,26 +330,6 @@
     }
     if (prevBtn) prevBtn.disabled = currentPage <= 1;
     if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
-  }
-
-  function renderPageNumbers(totalPages) {
-    var wrap = document.getElementById('invoicePageNums');
-    if (!wrap) return;
-    wrap.innerHTML = '';
-    // Show at most 5 page buttons around the current page
-    var first = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
-    var last = Math.min(totalPages, first + 4);
-    for (var p = first; p <= last; p++) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'page-num' + (p === currentPage ? ' active' : '');
-      b.textContent = p;
-      if (p === currentPage) b.setAttribute('aria-current', 'page');
-      b.addEventListener('click', (function (page) {
-        return function () { currentPage = page; renderTable(); };
-      })(p));
-      wrap.appendChild(b);
-    }
   }
 
   function selectInvoice(id) {
