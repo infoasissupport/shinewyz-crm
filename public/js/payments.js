@@ -430,6 +430,9 @@
     if (requestedFilter && filterSelect.querySelector('option[value="' + requestedFilter + '"]')) {
       filterSelect.value = requestedFilter;
       activeFilter = requestedFilter;
+      // Show every matching invoice, not just today's (the page defaults to Daily)
+      var tfDefault = document.getElementById('invoiceDateFilterSelect');
+      if (tfDefault) tfDefault.value = 'all';
     }
     filterSelect.addEventListener('change', function () {
       if (invDateRangeMenu) invDateRangeMenu.classList.remove('open');
