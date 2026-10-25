@@ -67,7 +67,7 @@
 
 .paymentsCommonMainAll{
 overflow: auto;
-  height: calc(100dvh - 177px);
+  height: calc(100dvh - 309px);
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 12px;
@@ -242,7 +242,7 @@ overflow: initial;
       "amt method method"
       "wash wash wash";
     column-gap:12px;row-gap:8px;align-items:center;
-    background:#fff;border:1px solid #eef0f3;border-radius:14px;padding:14px;margin:0;cursor:pointer;
+    background:#fff;border:1px solid #cdcdcd;border-radius:14px;padding:14px;margin:0;cursor:pointer;
   }
   #invoiceTableBody tr.selected{background:#fdf0f0;border-color:#f8d7d7;}
   #invoiceTableBody tr td,#invoiceTableBody tr td:first-child,#invoiceTableBody tr td:last-child{
