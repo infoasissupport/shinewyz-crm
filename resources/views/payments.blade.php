@@ -12,13 +12,24 @@
 <section class="view" id="payments">
   <div class="view-header">
     <div class="view-title">Payments and invoicing</div>
-    <button class="btn" id="exportInvoicesBtn"><i class="ti ti-download"></i>Export</button>
+    <div class="pay-header-actions">
+      <div class="pay-filter-field">
+        <label for="invoiceDateFilterSelect">Timeframe</label>
+        <select id="invoiceDateFilterSelect">
+          <option value="all">All Time</option>
+          <option value="daily" selected>Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </div>
+      <button class="btn" id="exportInvoicesBtn"><i class="ti ti-download"></i>Export</button>
+    </div>
   </div>
   <div class="paymentsCommonMainAll">
   <div class="tablefiletrFlex ">
   <div class="pay-kpi-grid">
     <div class="pay-kpi">
-      <div class="pay-kpi-icon" style="background:#ECFDF5;color:#10B981;"><i class="ti ti-cash"></i></div>
+      <div class="pay-kpi-icon pay-kpi--green"><i class="ti ti-cash"></i></div>
       <div class="pay-kpi-body">
         <div class="pay-kpi-label">Total Cash</div>
         <div class="pay-kpi-value" id="payKpiCash">₹0</div>
@@ -26,7 +37,7 @@
       </div>
     </div>
     <div class="pay-kpi">
-      <div class="pay-kpi-icon" style="background:#EFF6FF;color:#3B82F6;"><i class="ti ti-device-mobile"></i></div>
+      <div class="pay-kpi-icon pay-kpi--blue"><i class="ti ti-device-mobile"></i></div>
       <div class="pay-kpi-body">
         <div class="pay-kpi-label">Total UPI</div>
         <div class="pay-kpi-value" id="payKpiUpi">₹0</div>
@@ -34,7 +45,7 @@
       </div>
     </div>
     <div class="pay-kpi">
-      <div class="pay-kpi-icon" style="background:#F3E8FF;color:#A855F7;"><i class="ti ti-wallet"></i></div>
+      <div class="pay-kpi-icon pay-kpi--purple"><i class="ti ti-wallet"></i></div>
       <div class="pay-kpi-body">
         <div class="pay-kpi-label">Total Cash + UPI</div>
         <div class="pay-kpi-value" id="payKpiTotal">₹0</div>
@@ -42,7 +53,7 @@
       </div>
     </div>
     <div class="pay-kpi">
-      <div class="pay-kpi-icon" style="background:#FEF3C7;color:#D97706;"><i class="ti ti-report-money"></i></div>
+      <div class="pay-kpi-icon pay-kpi--amber"><i class="ti ti-report-money"></i></div>
       <div class="pay-kpi-body">
         <div class="pay-kpi-label">Total Amount</div>
         <div class="pay-kpi-value" id="payKpiGrandTotal">₹0</div>
@@ -52,15 +63,6 @@
   </div>
     <div class="toolbar">
         <input id="invoiceSearchInput" aria-label="Search invoice, customer, vehicle number or model" placeholder="Search Invoice, Customer, Vehicle No. Or Model" autocomplete="off">
-        <div class="pay-filter-field">
-          <label for="invoiceDateFilterSelect">Timeframe</label>
-          <select id="invoiceDateFilterSelect">
-            <option value="all" selected>All Time</option>
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-          </select>
-        </div>
         <div class="pay-filter-field">
           <label for="invoiceFilterSelect">Filter</label>
           <select id="invoiceFilterSelect">

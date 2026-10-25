@@ -11,7 +11,7 @@
 @section('content')
 <section class="view" id="dashboard">
   <div class="view-header">
-    <div class="view-title dash-page-title">Dashboard</div>
+    <div class="view-title dash-page-title">Dashboard</div> 
     <button class="btn btn-accent" id="newBookingBtn"><i class="ti ti-plus"></i>New Appointment</button>
   </div>
   <div class="fixedScrolldivCommon">

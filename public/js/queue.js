@@ -73,7 +73,8 @@
       if (b.created_at) {
         var dateObj = new Date(b.created_at);
         if (!isNaN(dateObj.getTime())) {
-          timeString = dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+          timeString = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ', ' +
+            dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
           waitString = formatWaitTime(Date.now() - dateObj.getTime());
         }
       }
@@ -526,10 +527,8 @@
           el.className = 'card bay-card';
           el.setAttribute('data-bay-id', bayId);
           el.setAttribute('data-bay-name', bayName);
-          var bayActionsHtml =
-            '<span class="bay-actions">' +
-              '<button type="button" class="bay-action-btn delete" data-bay-action="delete-bay" title="Delete bay">' + BAY_TRASH_SVG + '</button>' +
-            '</span>';
+          // Delete bay button hidden for now; removeBay() and its click handler are kept for re-enabling.
+          var bayActionsHtml = '';
             
           if (card) {
             var isWashing = card.stage === 'inprogress';
