@@ -94,7 +94,7 @@ overflow: auto;
   .paymentsCommonMainAll{
     grid-template-columns: 1fr;
 overflow: auto;
-height: calc(100dvh - 277px);
+height: calc(100dvh - 179px);
   }
   .table-wrap .table-scroll{
     height: 60vh !important;
@@ -106,6 +106,13 @@ height: calc(100dvh - 277px);
     width: 100%;
     flex: 1 1 100%;
   }
+}
+
+@media (max-width:767px){
+    .paymentsCommonMainAll{
+height: calc(100dvh - 277px);
+    }
+
 }
 
 /* =====================================================================
