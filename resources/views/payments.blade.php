@@ -15,7 +15,7 @@
     <div class="pay-header-actions">
       <div class="pay-filter-field">
         <label for="invoiceDateFilterSelect">Timeframe</label>
-        <select id="invoiceDateFilterSelect">
+        <select id="invoiceDateFilterSelect" autocomplete="off">
           <option value="all">All Time</option>
           <option value="daily" selected>Daily</option>
           <option value="weekly">Weekly</option>
@@ -25,9 +25,7 @@
       <button class="btn" id="exportInvoicesBtn"><i class="ti ti-download"></i>Export</button>
     </div>
   </div>
-  <div class="paymentsCommonMainAll">
-  <div class="tablefiletrFlex ">
-  <div class="pay-kpi-grid">
+   <div class="pay-kpi-grid">
     <div class="pay-kpi">
       <div class="pay-kpi-icon pay-kpi--green"><i class="ti ti-cash"></i></div>
       <div class="pay-kpi-body">
@@ -61,6 +59,9 @@
       </div>
     </div>
   </div>
+  <div class="paymentsCommonMainAll">
+  <div class="tablefiletrFlex ">
+ 
     <div class="toolbar">
         <input id="invoiceSearchInput" aria-label="Search invoice, customer, vehicle number or model" placeholder="Search Invoice, Customer, Vehicle No. Or Model" autocomplete="off">
         <div class="pay-filter-field">

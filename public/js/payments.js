@@ -406,11 +406,13 @@
   if (filterSelect) {
     // Dashboard "Pending payments" card links here with ?filter=pending
     var requestedFilter = new URLSearchParams(window.location.search).get('filter');
+    // Timeframe always opens on Daily (browsers otherwise restore the last choice on reload / Back)
+    var tfDefault = document.getElementById('invoiceDateFilterSelect');
+    if (tfDefault) tfDefault.value = 'daily';
     if (requestedFilter && filterSelect.querySelector('option[value="' + requestedFilter + '"]')) {
       filterSelect.value = requestedFilter;
       activeFilter = requestedFilter;
-      // Show every matching invoice, not just today's (the page defaults to Daily)
-      var tfDefault = document.getElementById('invoiceDateFilterSelect');
+      // Show every matching invoice, not just today's
       if (tfDefault) tfDefault.value = 'all';
     }
     filterSelect.addEventListener('change', function () {
