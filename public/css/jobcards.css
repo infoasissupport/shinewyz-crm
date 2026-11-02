@@ -243,7 +243,7 @@ flex: auto;
 .jc-toolbar .jc-btn-apply:hover{background:#e00100;}
 
 /* Table header: rounded dark bar */
-#jcTableScroll{margin:0 16px;border:1px solid #eef0f3;border-radius:12px;}
+#jcTableScroll{border:1px solid #eef0f3;border-radius:12px;}
 #jcTableScroll thead th{background:#111418;color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:16px 12px;border-bottom:none;white-space:nowrap;}
 #jcTableScroll thead tr th:first-child{border-top-left-radius:12px;}
 #jcTableScroll thead tr th:last-child{border-top-right-radius:12px;}
