@@ -1228,13 +1228,6 @@ display: flex !important;
     gap: 12px !important;
   }
 
-  input,
-  select,
-  textarea,
-  [contenteditable="true"],
-  [contenteditable=""] {
-    font-size: 16px !important;
-  }
 }
 
 @media (max-width: 576px) {
@@ -1500,3 +1493,15 @@ td.col-sl{color:#667085!important;font-weight:600;}
 .topbar-search > svg path{stroke:#0ea5e9;}
 .topbar-search input{font-size:14px;color:#101828;}
 .topbar-search input::placeholder{color:#667085;}
+
+@supports (-webkit-touch-callout: none) {
+  @media screen and (max-width: 767px) {
+    input,
+    select,
+    textarea,
+    [contenteditable="true"],
+    [contenteditable=""] {
+      font-size: 16px !important;
+    }
+  }
+}
