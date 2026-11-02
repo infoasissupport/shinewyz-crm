@@ -339,6 +339,7 @@
 
     var pv = parseInvoiceVehicle(inv.vehicle);
     document.getElementById('previewCustomerName').textContent = inv.customer || '—';
+    document.getElementById('previewCustomerPhone').textContent = inv.phone || '—';
     document.getElementById('previewVehiclePlate').textContent = pv.number !== '—' ? pv.number : (pv.model !== '—' ? pv.model : '—');
     document.getElementById('previewVehicleModel').textContent = pv.number !== '—' && pv.model !== '—' ? pv.model : 'Vehicle';
 
@@ -393,6 +394,7 @@
   function clearPreview() {
     document.getElementById('previewMeta').textContent = 'No invoice selected';
     document.getElementById('previewCustomerName').textContent = '—';
+    document.getElementById('previewCustomerPhone').textContent = '—';
     document.getElementById('previewVehiclePlate').textContent = '—';
     document.getElementById('previewVehicleModel').textContent = 'Vehicle';
     document.getElementById('previewService').textContent = 'Create or complete a wash to see billing here';
