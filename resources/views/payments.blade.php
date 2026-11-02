@@ -113,7 +113,7 @@
       <div class="inv-preview-party">
         <div class="inv-party">
           <span class="inv-party-avatar inv-party-avatar--customer"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg></span>
-          <div class="inv-party-text"><div class="inv-party-name" id="previewCustomerName">—</div><div class="inv-party-sub">Customer</div></div>
+          <div class="inv-party-text"><div class="inv-party-name" id="previewCustomerName">—</div><div class="inv-party-sub" id="previewCustomerPhone">—</div></div>
         </div>
         <div class="inv-party">
           <span class="inv-party-avatar inv-party-avatar--vehicle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h-1a1 1 0 0 1-1-1v-4l2-5h14l2 5v4a1 1 0 0 1-1 1h-1"/><path d="M3 12h18"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M9.5 17h5"/></svg></span>
