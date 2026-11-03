@@ -12,13 +12,22 @@
 <section class="view" id="payments">
   <div class="view-header">
     <div class="view-title">Payments and invoicing</div>
-    <button class="btn" id="exportInvoicesBtn"><i class="ti ti-download"></i>Export</button>
+    <div class="pay-header-actions">
+      <div class="pay-filter-field">
+        <label for="invoiceDateFilterSelect">Timeframe</label>
+        <select id="invoiceDateFilterSelect" autocomplete="off">
+          <option value="all">All Time</option>
+          <option value="daily" selected>Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </div>
+      <button class="btn" id="exportInvoicesBtn"><i class="ti ti-download"></i>Export</button>
+    </div>
   </div>
-  <div class="paymentsCommonMainAll">
-  <div class="tablefiletrFlex ">
-  <div class="pay-kpi-grid">
+   <div class="pay-kpi-grid">
     <div class="pay-kpi">
-      <div class="pay-kpi-icon" style="background:#ECFDF5;color:#10B981;"><i class="ti ti-cash"></i></div>
+      <div class="pay-kpi-icon pay-kpi--green"><i class="ti ti-cash"></i></div>
       <div class="pay-kpi-body">
         <div class="pay-kpi-label">Total Cash</div>
         <div class="pay-kpi-value" id="payKpiCash">₹0</div>
@@ -26,7 +35,7 @@
       </div>
     </div>
     <div class="pay-kpi">
-      <div class="pay-kpi-icon" style="background:#EFF6FF;color:#3B82F6;"><i class="ti ti-device-mobile"></i></div>
+      <div class="pay-kpi-icon pay-kpi--blue"><i class="ti ti-device-mobile"></i></div>
       <div class="pay-kpi-body">
         <div class="pay-kpi-label">Total UPI</div>
         <div class="pay-kpi-value" id="payKpiUpi">₹0</div>
@@ -34,7 +43,7 @@
       </div>
     </div>
     <div class="pay-kpi">
-      <div class="pay-kpi-icon" style="background:#F3E8FF;color:#A855F7;"><i class="ti ti-wallet"></i></div>
+      <div class="pay-kpi-icon pay-kpi--purple"><i class="ti ti-wallet"></i></div>
       <div class="pay-kpi-body">
         <div class="pay-kpi-label">Total Cash + UPI</div>
         <div class="pay-kpi-value" id="payKpiTotal">₹0</div>
@@ -42,7 +51,7 @@
       </div>
     </div>
     <div class="pay-kpi">
-      <div class="pay-kpi-icon" style="background:#FEF3C7;color:#D97706;"><i class="ti ti-report-money"></i></div>
+      <div class="pay-kpi-icon pay-kpi--amber"><i class="ti ti-report-money"></i></div>
       <div class="pay-kpi-body">
         <div class="pay-kpi-label">Total Amount</div>
         <div class="pay-kpi-value" id="payKpiGrandTotal">₹0</div>
@@ -50,17 +59,11 @@
       </div>
     </div>
   </div>
+  <div class="paymentsCommonMainAll">
+  <div class="tablefiletrFlex ">
+ 
     <div class="toolbar">
         <input id="invoiceSearchInput" aria-label="Search invoice, customer, vehicle number or model" placeholder="Search Invoice, Customer, Vehicle No. Or Model" autocomplete="off">
-        <div class="pay-filter-field">
-          <label for="invoiceDateFilterSelect">Timeframe</label>
-          <select id="invoiceDateFilterSelect">
-            <option value="all" selected>All Time</option>
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-          </select>
-        </div>
         <div class="pay-filter-field">
           <label for="invoiceFilterSelect">Filter</label>
           <select id="invoiceFilterSelect">
@@ -95,7 +98,6 @@
         <span id="invoicePageInfo"></span>
         <div class="pagination-btns">
           <button type="button" class="btn" id="invoicePrevBtn"><i class="ti ti-chevron-left"></i>Prev</button>
-          <div class="pagination-pages" id="invoicePageNums"></div>
           <button type="button" class="btn" id="invoiceNextBtn">Next<i class="ti ti-chevron-right"></i></button>
         </div>
       </div>
@@ -111,7 +113,7 @@
       <div class="inv-preview-party">
         <div class="inv-party">
           <span class="inv-party-avatar inv-party-avatar--customer"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg></span>
-          <div class="inv-party-text"><div class="inv-party-name" id="previewCustomerName">—</div><div class="inv-party-sub">Customer</div></div>
+          <div class="inv-party-text"><div class="inv-party-name" id="previewCustomerName">—</div><div class="inv-party-sub" id="previewCustomerPhone">—</div></div>
         </div>
         <div class="inv-party">
           <span class="inv-party-avatar inv-party-avatar--vehicle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h-1a1 1 0 0 1-1-1v-4l2-5h14l2 5v4a1 1 0 0 1-1 1h-1"/><path d="M3 12h18"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M9.5 17h5"/></svg></span>

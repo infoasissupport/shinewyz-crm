@@ -122,7 +122,8 @@
     if (card.stage === 'inprogress') {
       return '<button type="button" class="btn jc-action-btn" data-action="view" style="color:' + color.text + ';border-color:' + color.text + ';">View Progress<i class="ti ti-chevron-down" style="transform:rotate(-90deg);display:inline-block;"></i></button>';
     }
-    return '<button type="button" class="btn jc-action-btn" data-action="pay" style="color:' + color.text + ';border-color:' + color.text + ';"><i class="ti ti-credit-card"></i>Make Payment</button>';
+    var paid = card.invoice && card.invoice.status === 'paid';
+    return '<button type="button" class="btn jc-action-btn" data-action="pay" style="color:' + (paid ? '#166534' : color.text) + ';border-color:' + (paid ? '#166534' : color.text) + ';"><i class="ti ' + (paid ? 'ti-circle-check' : 'ti-credit-card') + '"></i>' + (paid ? 'Payment Completed' : 'Make Payment') + '</button>';
   }
 
   function rowHtml(card, slNo) {
@@ -173,9 +174,6 @@
     if (!pager) return;
 
     var html = '<button type="button" class="btn" id="jcPagePrev"' + (currentPage <= 1 ? ' disabled' : '') + '><i class="ti ti-chevron-down" style="transform:rotate(90deg);display:inline-block;"></i></button>';
-    for (var p = 1; p <= totalPages; p++) {
-      html += '<button type="button" class="btn jc-page-num' + (p === currentPage ? ' active' : '') + '" data-page="' + p + '">' + p + '</button>';
-    }
     html += '<button type="button" class="btn" id="jcPageNext"' + (currentPage >= totalPages ? ' disabled' : '') + '><i class="ti ti-chevron-down" style="transform:rotate(-90deg);display:inline-block;"></i></button>';
     pager.innerHTML = html;
 
@@ -183,12 +181,6 @@
     var nextBtn = document.getElementById('jcPageNext');
     if (prevBtn) prevBtn.addEventListener('click', function () { currentPage--; renderTable(); });
     if (nextBtn) nextBtn.addEventListener('click', function () { currentPage++; renderTable(); });
-    pager.querySelectorAll('.jc-page-num').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        currentPage = Number(btn.getAttribute('data-page'));
-        renderTable();
-      });
-    });
   }
 
   function renderTable() {
@@ -605,7 +597,8 @@
     } else if (card.stage === 'inprogress') {
       html += '<button type="button" class="btn btn-accent" id="jcAdvanceBtn"><i class="ti ti-check"></i>Completed</button>';
     } else if (card.stage === 'completed') {
-      html += '<button type="button" class="btn btn-accent" id="jcPayBtn"><i class="ti ti-credit-card"></i>Make Payment</button>';
+      var paid = card.invoice && card.invoice.status === 'paid';
+      html += '<button type="button" class="btn btn-accent" id="jcPayBtn"' + (paid ? ' style="background:#166534;border-color:#166534;"' : '') + '><i class="ti ' + (paid ? 'ti-circle-check' : 'ti-credit-card') + '"></i>' + (paid ? 'Payment Completed' : 'Make Payment') + '</button>';
     }
     detailFooter.innerHTML = html;
     detailFooter.style.display = 'flex';

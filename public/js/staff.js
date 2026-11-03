@@ -7,7 +7,6 @@
   var prevBtn = document.getElementById('staffPrevBtn');
   var nextBtn = document.getElementById('staffNextBtn');
   var pageInfo = document.getElementById('staffPageInfo');
-  var pageNumbers = document.getElementById('staffPageNumbers');
   var exportBtn = document.getElementById('exportStaffBtn');
   var form = document.getElementById('staffForm');
   var modalTitle = document.getElementById('staffModalTitle');
@@ -254,20 +253,6 @@
       var rangeStart = start + 1;
       var rangeEnd = Math.min(start + PAGE_SIZE, totalItems);
       pageInfo.textContent = 'Showing ' + rangeStart + ' to ' + rangeEnd + ' of ' + totalItems + ' staff';
-    }
-
-    if (pageNumbers) {
-      pageNumbers.innerHTML = '';
-      for (var p = 1; p <= totalPages; p++) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'stf-page-btn' + (p === currentPage ? ' active' : '');
-        btn.textContent = p;
-        btn.addEventListener('click', function (page) {
-          return function () { currentPage = page; renderTable(); };
-        }(p));
-        pageNumbers.appendChild(btn);
-      }
     }
 
     if (prevBtn) prevBtn.disabled = currentPage <= 1;

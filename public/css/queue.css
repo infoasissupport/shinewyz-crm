@@ -115,10 +115,6 @@
 #completed .pagination-btns > .btn:hover:not(:disabled){background:#f5f6f8;}
 #completed .pagination-btns > .btn:disabled,#completed .pagination-btns > .btn:disabled:hover{opacity:1;color:#98a2b3;background:#f9fafb;}
 #completed .pagination-btns > .btn .ti{color:inherit;font-size:14px;}
-#completed .pagination-pages{display:flex;gap:6px;}
-#completed .page-num{min-width:38px;height:38px;padding:0 6px;border-radius:10px;border:1px solid #e4e7ec;background:#fff;color:#344054;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;}
-#completed .page-num:hover{background:#f5f6f8;}
-#completed .page-num.active{background:var(--accent);border-color:var(--accent);color:#fff;}
 
 @media (max-width:640px){
   #completedTableScroll{height:auto;overflow:visible;border:none;border-radius:0;background:transparent;}

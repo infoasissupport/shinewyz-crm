@@ -538,7 +538,7 @@ display: none;
   .wstep__connector{display:none;}
   .footer__inner{grid-template-columns:1fr 1fr; gap:8px}
 }
-@media (max-width:768px){
+@media (max-width:1199px){
   .nav__burger{display:block;}
   .nav__menu{position:fixed;top:0;left:0;bottom:0;width:300px;max-width:80vw;display:flex;flex-direction:column;align-items:stretch;gap:18px;background:var(--navy-deep);padding:90px 28px 32px;box-shadow:24px 0 60px -20px rgba(0,0,0,.6);transform:translateX(-100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);overflow-y:auto;z-index:250;}
   .nav__menu--open{transform:translateX(0);}

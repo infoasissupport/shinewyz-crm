@@ -94,7 +94,6 @@
       <span id="completedPageInfo"></span>
       <div class="pagination-btns">
         <button type="button" class="btn" id="completedPrevBtn"><i class="ti ti-chevron-left"></i>Prev</button>
-        <div class="pagination-pages" id="completedPageNums"></div>
         <button type="button" class="btn" id="completedNextBtn">Next<i class="ti ti-chevron-right"></i></button>
       </div>
     </div>

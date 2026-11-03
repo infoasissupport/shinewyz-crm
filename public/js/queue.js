@@ -73,7 +73,8 @@
       if (b.created_at) {
         var dateObj = new Date(b.created_at);
         if (!isNaN(dateObj.getTime())) {
-          timeString = dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+          timeString = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ', ' +
+            dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
           waitString = formatWaitTime(Date.now() - dateObj.getTime());
         }
       }
@@ -151,27 +152,6 @@
   var WL_CAR_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle><path d="M9 17h6"></path></svg>';
   var CW_CALENDAR_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M8 2.5v4M16 2.5v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01"/></svg>';
   var CW_EYE_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
-
-  // Completed washes: numbered page buttons between Prev / Next (at most 5, centred on the current page)
-  function renderCompletedPageNumbers(totalPages) {
-    var wrap = document.getElementById('completedPageNums');
-    if (!wrap) return;
-    wrap.innerHTML = '';
-    if (totalPages < 1) return;
-    var first = Math.max(1, Math.min(completedCurrentPage - 2, totalPages - 4));
-    var last = Math.min(totalPages, first + 4);
-    for (var p = first; p <= last; p++) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'page-num' + (p === completedCurrentPage ? ' active' : '');
-      b.textContent = p;
-      if (p === completedCurrentPage) b.setAttribute('aria-current', 'page');
-      b.addEventListener('click', (function (page) {
-        return function () { completedCurrentPage = page; renderCompletedTable(); };
-      })(p));
-      wrap.appendChild(b);
-    }
-  }
 
   // Empty-state row for the waitlist / completed tables: pink circle + red icon, title, hint
   var Q_EMPTY_CAR_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.2 10.2 6.9 5.6A2.4 2.4 0 0 1 9.1 4h5.8a2.4 2.4 0 0 1 2.2 1.6l1.7 4.6A2.6 2.6 0 0 1 21 12.8V17a1 1 0 0 1-1 1h-1v1.2a1.3 1.3 0 0 1-2.6 0V18H7.6v1.2a1.3 1.3 0 0 1-2.6 0V18H4a1 1 0 0 1-1-1v-4.2a2.6 2.6 0 0 1 2.2-2.6zm2.1-.2h9.4l-1.3-3.6a.9.9 0 0 0-.8-.6H9.4a.9.9 0 0 0-.8.6L7.3 10zM7 15.2a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6zm10 0a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6z"/></svg>';
@@ -258,7 +238,6 @@
       if (completedPageInfo) completedPageInfo.textContent = 'No completed washes';
       if (completedPrevBtn) completedPrevBtn.disabled = true;
       if (completedNextBtn) completedNextBtn.disabled = true;
-      renderCompletedPageNumbers(0);
       return;
     }
 
@@ -286,7 +265,6 @@
         '<td class="cw-td-action"><button type="button" class="btn view-job-btn-sm" data-view-job="' + escapeHtml(card.id) + '">' + CW_EYE_ICON_SVG + 'View</button></td>';
       completedRows.appendChild(el);
     });
-    renderCompletedPageNumbers(totalPages);
 
     if (completedPageInfo) {
       var rangeStart = start + 1;
@@ -526,10 +504,8 @@
           el.className = 'card bay-card';
           el.setAttribute('data-bay-id', bayId);
           el.setAttribute('data-bay-name', bayName);
-          var bayActionsHtml =
-            '<span class="bay-actions">' +
-              '<button type="button" class="bay-action-btn delete" data-bay-action="delete-bay" title="Delete bay">' + BAY_TRASH_SVG + '</button>' +
-            '</span>';
+          // Delete bay button hidden for now; removeBay() and its click handler are kept for re-enabling.
+          var bayActionsHtml = '';
             
           if (card) {
             var isWashing = card.stage === 'inprogress';

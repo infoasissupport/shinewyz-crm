@@ -56,7 +56,7 @@
     <form id="serviceForm">
       <div class="modal-body">
         <div class="field"><label for="svcName">Service name</label><input type="text" id="svcName" required placeholder="e.g. Foam wash"></div>
-        <div class="field"><label for="svcDesc">Description</label><input type="text" id="svcDesc" placeholder="e.g. Foam wash and rinse, hand dry"></div>
+        <div class="field"><label for="svcDesc">Description</label><textarea id="svcDesc" rows="3" placeholder="e.g. Foam wash and rinse, hand dry"></textarea></div>
         <div class="field"><label for="svcCategory">Category</label>
           <select id="svcCategory">
             <option value="Exterior">Exterior</option>

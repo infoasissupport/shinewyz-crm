@@ -8,7 +8,6 @@
   var prevBtn = document.getElementById('expPrevBtn');
   var nextBtn = document.getElementById('expNextBtn');
   var pageInfo = document.getElementById('expPageInfo');
-  var pageNumbers = document.getElementById('expPageNumbers');
   var newBtn = document.getElementById('newExpenseBtn');
   var exportBtn = document.getElementById('exportExpensesBtn');
   var modal = document.getElementById('expenseModal');
@@ -266,20 +265,6 @@
         var rangeStart = start + 1;
         var rangeEnd = Math.min(start + PAGE_SIZE, filtered.length);
         pageInfo.textContent = 'Showing ' + rangeStart + ' to ' + rangeEnd + ' of ' + filtered.length + ' expenses';
-      }
-    }
-
-    if (pageNumbers) {
-      pageNumbers.innerHTML = '';
-      for (var p = 1; p <= totalPages; p++) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'exp-page-btn' + (p === currentPage ? ' active' : '');
-        btn.textContent = p;
-        btn.addEventListener('click', function (page) {
-          return function () { currentPage = page; renderTable(); };
-        }(p));
-        pageNumbers.appendChild(btn);
       }
     }
 

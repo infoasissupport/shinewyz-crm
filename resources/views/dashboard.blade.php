@@ -11,13 +11,13 @@
 @section('content')
 <section class="view" id="dashboard">
   <div class="view-header">
-    <div class="view-title dash-page-title">Dashboard</div>
+    <div class="view-title dash-page-title">Dashboard</div> 
     <button class="btn btn-accent" id="newBookingBtn"><i class="ti ti-plus"></i>New Appointment</button>
   </div>
   <div class="fixedScrolldivCommon">
 
   <div class="dash-stats-grid">
-    <div class="dash-stat-card is-link" data-href="/bookings" role="link" tabindex="0" aria-label="View today's bookings">
+    <div class="dash-stat-card is-link" data-href="/queue" role="link" tabindex="0" aria-label="View today's washes in the queue">
       <div class="dash-stat-icon dash-badge-purple">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none">
           <rect x="3" y="4.5" width="18" height="17" rx="3" stroke="currentColor" stroke-width="1.8"/>

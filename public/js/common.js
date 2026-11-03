@@ -125,8 +125,6 @@ document.addEventListener('click', function (e) {
     var overlay = document.getElementById(id);
     if (!overlay || overlay.classList.contains('open')) return;
     overlay.classList.add('open');
-    var firstField = overlay.querySelector('input, select, textarea');
-    if (firstField) firstField.focus();
   }
 
   function closeModal(id) {

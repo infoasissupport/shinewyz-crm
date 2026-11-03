@@ -526,7 +526,8 @@
         if (b.created_at) {
           var dateObj = new Date(b.created_at);
           if (!isNaN(dateObj.getTime())) {
-            timeString = dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+            timeString = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ', ' +
+              dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
           }
         }
 

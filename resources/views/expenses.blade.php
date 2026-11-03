@@ -142,7 +142,6 @@
       <span id="expPageInfo"></span>
       <div class="pagination-btns">
         <button type="button" class="btn" id="expPrevBtn"><i class="ti ti-chevron-down" style="transform:rotate(90deg);display:inline-block;"></i></button>
-        <div class="exp-page-numbers" id="expPageNumbers"></div>
         <button type="button" class="btn" id="expNextBtn"><i class="ti ti-chevron-down" style="transform:rotate(-90deg);display:inline-block;"></i></button>
       </div>
     </div>

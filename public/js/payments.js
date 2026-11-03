@@ -317,7 +317,6 @@
       tr.addEventListener('click', function () { selectInvoice(inv.id); });
       tableBody.appendChild(tr);
     });
-    renderPageNumbers(totalPages);
 
     if (emptyState) emptyState.style.display = filtered.length ? 'none' : 'block';
     if (pageInfo) {
@@ -333,26 +332,6 @@
     if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
   }
 
-  function renderPageNumbers(totalPages) {
-    var wrap = document.getElementById('invoicePageNums');
-    if (!wrap) return;
-    wrap.innerHTML = '';
-    // Show at most 5 page buttons around the current page
-    var first = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
-    var last = Math.min(totalPages, first + 4);
-    for (var p = first; p <= last; p++) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'page-num' + (p === currentPage ? ' active' : '');
-      b.textContent = p;
-      if (p === currentPage) b.setAttribute('aria-current', 'page');
-      b.addEventListener('click', (function (page) {
-        return function () { currentPage = page; renderTable(); };
-      })(p));
-      wrap.appendChild(b);
-    }
-  }
-
   function selectInvoice(id) {
     var inv = findInvoice(id);
     if (!inv) return;
@@ -360,6 +339,7 @@
 
     var pv = parseInvoiceVehicle(inv.vehicle);
     document.getElementById('previewCustomerName').textContent = inv.customer || '—';
+    document.getElementById('previewCustomerPhone').textContent = inv.phone || '—';
     document.getElementById('previewVehiclePlate').textContent = pv.number !== '—' ? pv.number : (pv.model !== '—' ? pv.model : '—');
     document.getElementById('previewVehicleModel').textContent = pv.number !== '—' && pv.model !== '—' ? pv.model : 'Vehicle';
 
@@ -414,6 +394,7 @@
   function clearPreview() {
     document.getElementById('previewMeta').textContent = 'No invoice selected';
     document.getElementById('previewCustomerName').textContent = '—';
+    document.getElementById('previewCustomerPhone').textContent = '—';
     document.getElementById('previewVehiclePlate').textContent = '—';
     document.getElementById('previewVehicleModel').textContent = 'Vehicle';
     document.getElementById('previewService').textContent = 'Create or complete a wash to see billing here';
@@ -427,9 +408,14 @@
   if (filterSelect) {
     // Dashboard "Pending payments" card links here with ?filter=pending
     var requestedFilter = new URLSearchParams(window.location.search).get('filter');
+    // Timeframe always opens on Daily (browsers otherwise restore the last choice on reload / Back)
+    var tfDefault = document.getElementById('invoiceDateFilterSelect');
+    if (tfDefault) tfDefault.value = 'daily';
     if (requestedFilter && filterSelect.querySelector('option[value="' + requestedFilter + '"]')) {
       filterSelect.value = requestedFilter;
       activeFilter = requestedFilter;
+      // Show every matching invoice, not just today's
+      if (tfDefault) tfDefault.value = 'all';
     }
     filterSelect.addEventListener('change', function () {
       if (invDateRangeMenu) invDateRangeMenu.classList.remove('open');
